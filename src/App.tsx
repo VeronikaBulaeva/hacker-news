@@ -1,7 +1,11 @@
+import AppRouterProvider from "@/components/router-provider";
+import Header from "@/components/Header/Header";
+
 function App() {
   return (
     <>
-      <p>Click on the Vite and React logos to learn more</p>
+      <Header />
+      <AppRouterProvider />
     </>
   );
 }
