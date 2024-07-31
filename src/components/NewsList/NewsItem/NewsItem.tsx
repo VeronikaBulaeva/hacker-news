@@ -1,26 +1,50 @@
-import { FC } from "react";
-import { ItemDataType } from "@/components/types";
-import { Box, FirstText, NewsItemLink, SecondText } from "@/components/style";
+import { FC } from 'react';
+import { NewsListItemType } from '@/components/types';
+import { styled, Typography } from '@mui/material';
+import ButtonLink from '@/commons/Button';
 
-const NewsItem: FC<ItemDataType> = ({
-  title,
-  user,
-  time_ago,
-  id,
-  points,
-  comments_count,
-}) => {
+const NewsItem: FC<NewsListItemType> = ({ title, user, time_ago, id, points, comments_count }) => {
   return (
     <NewsItemLink to={`/news/${id}`}>
-      <FirstText>{title}</FirstText>
-      <FirstText>Автор: {user}</FirstText>
+      <Typography variant="h1" color="text.primary">
+        {title}
+      </Typography>
+      <Typography variant="h1" color="text.primary">
+        Автор: {user}
+      </Typography>
       <Box>
-        <SecondText>{time_ago}</SecondText>
-        <SecondText>Нравится: {points}</SecondText>
-        <SecondText>Комментариев: {comments_count}</SecondText>
+        <Typography variant="subtitle2" color="text.secondary">
+          {time_ago}
+        </Typography>
+        <Typography variant="subtitle2" color="text.secondary">
+          Нравится: {points}
+        </Typography>
+        <Typography variant="subtitle2" color="text.secondary">
+          Комментариев: {comments_count}
+        </Typography>
       </Box>
     </NewsItemLink>
   );
 };
+
+const NewsItemLink = styled(ButtonLink)`
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 16px;
+  padding: 16px 20px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const Box = styled('div')`
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  text-align: center;
+`;
 
 export default NewsItem;

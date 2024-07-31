@@ -1,4 +1,4 @@
-export interface FeedDataType {
+export interface NewsItemType {
   id: number;
   title: string;
   points: number | null;
@@ -8,18 +8,12 @@ export interface FeedDataType {
   content: string;
   deleted?: boolean;
   dead?: boolean;
-  type: string;
   url?: string;
-  domain?: string;
-  comments: FeedDataType[];
-  level: number;
+  comments: NewsItemType[];
   comments_count: number;
 }
 
-export type ItemDataType = Pick<
-  FeedDataType,
-  "title" | "user" | "time_ago" | "id" | "points" | "comments_count"
->;
+export type NewsListItemType = Pick<NewsItemType, 'title' | 'user' | 'time_ago' | 'id' | 'points' | 'comments_count'>;
 
 export type RouteParamsType = {
   id: string;

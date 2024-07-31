@@ -1,56 +1,37 @@
-import { FC } from "react";
-import { useAppSelector } from "@/store/hooks";
-import { newsListSelector } from "@/store/newsSlice";
-import { GridSec, LinkButton, PageNumberBox } from "@/components/style";
-import NewsItem from "@/components/NewsList/NewsItem/NewsItem";
-import Loader from "@/components/Loader/Loader";
-import { useParams } from "react-router";
-import { RouteParamsType } from "@/components/types";
+import { FC, Suspense } from 'react';
+import { useAppSelector } from '@/store/hooks';
+import { newsListSelector } from '@/store/newsSlice';
+import NewsItem from '@/components/NewsList/NewsItem/NewsItem';
+import { styled } from '@mui/material';
+import Loader from '@/components/Loader/Loader';
 
 const List: FC = () => {
   const newsList = useAppSelector(newsListSelector);
-  const { id = 1 } = useParams<RouteParamsType>();
 
   return (
-    <>
-      {newsList.length ? (
-        <>
-          <GridSec>
-            {newsList.map((news) => (
-              <NewsItem
-                id={news.id}
-                title={news.title}
-                points={news.points}
-                user={news.user}
-                time_ago={news.time_ago}
-                comments_count={news.comments_count}
-                key={news.id}
-              />
-            ))}
-          </GridSec>
-          <PageNumberBox>
-            {Array(4)
-              .fill("")
-              .map((_, index) => (
-                <LinkButton
-                  style={
-                    +id === index + 1
-                      ? { backgroundColor: "#f0f0f0" }
-                      : undefined
-                  }
-                  to={`/newsList/${index + 1}`}
-                  key={index}
-                >
-                  {index + 1}
-                </LinkButton>
-              ))}
-          </PageNumberBox>
-        </>
-      ) : (
-        <Loader />
-      )}
-    </>
+    <Suspense fallback={<Loader />}>
+      <GridSection>
+        {newsList.map((news) => (
+          <NewsItem {...news} key={news.id} />
+        ))}
+      </GridSection>
+    </Suspense>
   );
 };
+const GridSection = styled('section')`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px;
+
+  ${({ theme }) => theme.breakpoints.down('lg')} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 24px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+`;
 
 export default List;

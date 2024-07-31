@@ -1,11 +1,14 @@
-import { FC } from "react";
-import { FirstText, MainSec } from "@/components/style";
+import { FC } from 'react';
+import { MainSection } from '@/components/style';
+import { Typography } from '@mui/material';
 
 const ErrorPage: FC = () => {
   return (
-    <MainSec>
-      <FirstText>Страница не найдена</FirstText>
-    </MainSec>
+    <MainSection>
+      <Typography variant="h1" color="text.primary">
+        Страница не найдена
+      </Typography>
+    </MainSection>
   );
 };
 export default ErrorPage;

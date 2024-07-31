@@ -1,17 +1,11 @@
-import { FeedDataType, ItemDataType } from "@/components/types";
+import { NewsItemType, NewsListItemType } from '@/components/types';
 
-export const getAllNews = async (
-  id: number,
-): Promise<ItemDataType[] | null> => {
+export const getAllNews = async (id: number): Promise<NewsListItemType[]> => {
   const result = await fetch(`https://api.hnpwa.com/v0/newest/${id}.json`);
-  try {
-    return await result.json();
-  } catch (e) {
-    return null;
-  }
+  return await result.json();
 };
 
-export const getNews = async (id: number): Promise<FeedDataType> => {
+export const getNews = async (id: number): Promise<NewsItemType> => {
   const result = await fetch(`https://api.hnpwa.com/v0/item/${id}.json`);
   return await result.json();
 };

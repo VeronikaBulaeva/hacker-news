@@ -1,28 +1,51 @@
-import { FC } from "react";
-import {
-  FirstText,
-  HeaderButton,
-  HeaderLink,
-  HeaderSec,
-} from "@/components/style";
-import Back from "@/assets/back.svg";
-import { useNavigate } from "react-router";
+import { FC } from 'react';
+import Back from '@/assets/back.svg';
+import { useNavigate } from 'react-router';
+import ButtonLink from '@/commons/Button';
+import { styled, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Header: FC = () => {
   const navigate = useNavigate();
   return (
-    <>
-      <HeaderSec>
-        <HeaderLink to={`/newsList/1`}>
-          <FirstText>Hacker News</FirstText>
-        </HeaderLink>
-        <HeaderButton onClick={() => navigate(-1)}>
-          <img src={Back} alt={"back"} width={30} height={30} />
-          <FirstText>Назад</FirstText>
-        </HeaderButton>
-      </HeaderSec>
-    </>
+    <HeaderSection sx={{ '&&': { padding: 3 } }}>
+      <HeaderLink component={Link} to="/newsList/1">
+        <Typography variant="h1" color="text.primary">
+          Hacker News
+        </Typography>
+      </HeaderLink>
+      <HeaderButton onClick={() => navigate(-1)}>
+        <img src={Back} alt="back" width={30} height={30} />
+        <Typography variant="h1" color="text.primary">
+          Назад
+        </Typography>
+      </HeaderButton>
+    </HeaderSection>
   );
 };
+
+const HeaderSection = styled('section')`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.secondary.main};
+  margin-inline: auto;
+`;
+
+const HeaderLink = styled(ButtonLink)`
+  margin-top: 16px;
+  padding: 16px 20px;
+  align-items: center;
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    padding: 10px;
+  }
+`;
+
+export const HeaderButton = styled(HeaderLink)`
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    padding: 6px;
+    gap: 4px;
+  }
+`;
 
 export default Header;
