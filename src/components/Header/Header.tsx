@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Back from '@/assets/back.svg';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { useNavigate } from 'react-router';
 import ButtonLink from '@/commons/Button';
 import { styled, Typography } from '@mui/material';
@@ -15,7 +15,7 @@ const Header: FC = () => {
         </Typography>
       </HeaderLink>
       <HeaderButton onClick={() => navigate(-1)}>
-        <img src={Back} alt="back" width={30} height={30} />
+        <ArrowBackIosNewRoundedIcon sx={{ fontSize: 30, color: 'background.paper' }} />
         <Typography variant="h1" color="text.primary">
           Назад
         </Typography>

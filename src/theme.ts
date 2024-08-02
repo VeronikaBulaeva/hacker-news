@@ -35,6 +35,7 @@ export const theme = createTheme({
     },
     background: {
       default: '#FFFFFF',
+      paper: '#000',
     },
     shadow: { shadow: '5px 5px 20px 0 #0000001a' },
     text: {

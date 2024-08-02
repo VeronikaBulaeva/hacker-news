@@ -1,19 +1,25 @@
 import { FC } from 'react';
-import { styled, Typography } from '@mui/material';
-import { FlexBox, GridBox, UpdateButton } from '@/components/style';
-import User from '@/assets/user.svg';
+import { Box, styled, Typography } from '@mui/material';
+import { UpdateButton } from '@/components/style';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import dayjs from 'dayjs';
-import Like from '@/assets/likes.svg';
-import Comment from '@/assets/comment.svg';
-import Reload from '@/assets/reload.svg';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import CachedIcon from '@mui/icons-material/Cached';
 import CommentList from '@/components/Comments/CommenList';
 import { Link } from 'react-router-dom';
 import ButtonLink from '@/commons/Button';
 import { useAppSelector } from '@/store/hooks';
-import { currentNewsSelector } from '@/store/newsSlice';
+import { currentNewsSelector, loadingSelector } from '@/store/newsSlice';
+import Loader from '@/components/Loader/Loader';
 
-const OneNews: FC = () => {
+interface OneNewsType {
+  onPressReload: () => void;
+}
+
+const OneNews: FC<OneNewsType> = ({ onPressReload }) => {
   const currentNews = useAppSelector(currentNewsSelector);
+  const isLoading = useAppSelector(loadingSelector);
 
   if (!currentNews) {
     return null;
@@ -27,38 +33,38 @@ const OneNews: FC = () => {
         {currentNews.title}
       </Typography>
       <LinkText to={`${currentNews.url}`}>{currentNews.url}</LinkText>
-      <FlexBox>
-        <img src={User} alt={'user'} width={50} height={50} />
-        <GridBox>
+      <Box display="flex" gap={1.5}>
+        <PersonOutlinedIcon sx={{ fontSize: 40 }} />
+        <Box display="grid" justifyContent="space-between">
           <Typography variant="h1" color="text.primary">
             {currentNews.user}
           </Typography>
           <Typography variant="subtitle2" color="text.secondary">
             {date}
           </Typography>
-        </GridBox>
-      </FlexBox>
+        </Box>
+      </Box>
       <div dangerouslySetInnerHTML={{ __html: currentNews.content }} />
       <SocialBox>
-        <FlexBox>
+        <Box display="flex" gap={1.5}>
           <ItemBox>
-            <img src={Like} alt={'like'} width={20} height={20} />
+            <FavoriteBorderIcon sx={{ fontSize: 22, color: 'background.paper' }} />
             <Typography variant="subtitle1" color="text.primary">
               {currentNews.points}
             </Typography>
           </ItemBox>
           <ItemBox>
-            <img src={Comment} alt={'comment'} width={20} height={20} />
+            <ChatBubbleOutlineIcon sx={{ fontSize: 22, color: 'background.paper' }} />
             <Typography variant="subtitle1" color="text.primary">
               {currentNews.comments_count}
             </Typography>
           </ItemBox>
-        </FlexBox>
-        <UpdateButton component="button" onClick={() => window.location.reload()}>
-          <img src={Reload} alt={'back'} width={20} height={20} />
+        </Box>
+        <UpdateButton component="button" onClick={onPressReload}>
+          <CachedIcon sx={{ fontSize: 25, color: 'background.paper' }} />
         </UpdateButton>
       </SocialBox>
-      <CommentList currentNews={currentNews} />
+      {isLoading ? <Loader /> : <CommentList currentNews={currentNews} />}
     </NewsSection>
   );
 };
