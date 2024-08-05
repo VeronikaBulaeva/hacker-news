@@ -17,7 +17,7 @@ interface OneNewsType {
   onPressReload: () => void;
 }
 
-const OneNews: FC<OneNewsType> = ({ onPressReload }) => {
+const NewsDetail: FC<OneNewsType> = ({ onPressReload }) => {
   const currentNews = useAppSelector(currentNewsSelector);
   const isLoading = useAppSelector(loadingSelector);
 
@@ -118,4 +118,4 @@ const ItemBox = styled(ButtonLink)`
   }
 `;
 
-export default OneNews;
+export default NewsDetail;

@@ -4,10 +4,10 @@ import { useParams } from 'react-router';
 import { RouteParamsType } from '@/components/types';
 import useRefetch from '@/commons/useRefetch';
 import { getNewsDetail } from '@/store/newsSlice';
-import OneNews from '@/components/OneNews';
+import NewsDetail from '@/components/NewsDetail';
 import { useErrorBoundary } from 'react-error-boundary';
 
-const NewsDetail: FC = () => {
+const NewsDetailPage: FC = () => {
   const { id } = useParams<RouteParamsType>();
   const { showBoundary } = useErrorBoundary();
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const NewsDetail: FC = () => {
   });
 
   return (
-    <OneNews
+    <NewsDetail
       onPressReload={() => {
         getCurrentNews(Number(id));
       }}
@@ -32,4 +32,4 @@ const NewsDetail: FC = () => {
   );
 };
 
-export default NewsDetail;
+export default NewsDetailPage;
