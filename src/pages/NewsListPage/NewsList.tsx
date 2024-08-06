@@ -16,9 +16,7 @@ const NewsList: FC = () => {
 
   const fetchData = useCallback(
     async (page: number) => {
-      if (page) {
-        await dispatch(getAllNews(page));
-      }
+      await dispatch(getAllNews(page));
     },
     [dispatch],
   );
@@ -28,8 +26,8 @@ const NewsList: FC = () => {
   });
 
   useEffect(() => {
-    dispatch(getAllNews(+id));
-  }, [dispatch, fetchData, id]);
+    fetchData(+id).catch(showBoundary);
+  }, [fetchData, id, showBoundary]);
 
   return (
     <MainSection>

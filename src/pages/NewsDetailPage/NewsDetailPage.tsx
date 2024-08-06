@@ -14,7 +14,7 @@ const NewsDetailPage: FC = () => {
 
   const getCurrentNews = useCallback(
     async (id: number) => {
-      await dispatch(getNewsDetail(+id));
+      await dispatch(getNewsDetail(id));
     },
     [dispatch],
   );
@@ -26,7 +26,7 @@ const NewsDetailPage: FC = () => {
   return (
     <NewsDetail
       onPressReload={() => {
-        getCurrentNews(Number(id));
+        getCurrentNews(Number(id)).catch(showBoundary);
       }}
     />
   );

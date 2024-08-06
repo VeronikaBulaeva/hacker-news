@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router';
 import ButtonLink from '@/commons/Button';
 import { styled, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { MAIN_PAGE_ROUTE } from '@/constants/routes.ts';
 
 const Header: FC = () => {
   const navigate = useNavigate();
+
   return (
     <HeaderSection sx={{ '&&': { padding: 3 } }}>
-      <HeaderLink component={Link} to="/newsList/1">
+      <HeaderLink component={Link} to={MAIN_PAGE_ROUTE}>
         <Typography variant="h1" color="text.primary">
           Hacker News
         </Typography>
@@ -25,27 +27,27 @@ const Header: FC = () => {
 };
 
 const HeaderSection = styled('section')`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid ${({ theme }) => theme.palette.secondary.main};
-  margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid ${({ theme }) => theme.palette.secondary.main};
+    margin-inline: auto;
 `;
 
 const HeaderLink = styled(ButtonLink)`
-  margin-top: 16px;
-  padding: 16px 20px;
-  align-items: center;
+    margin-top: 16px;
+    padding: 16px 20px;
+    align-items: center;
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    padding: 10px;
-  }
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+        padding: 10px;
+    }
 `;
 
 export const HeaderButton = styled(HeaderLink)`
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    padding: 6px;
-    gap: 4px;
-  }
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+        padding: 6px;
+        gap: 4px;
+    }
 `;
 
 export default Header;

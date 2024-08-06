@@ -8,10 +8,10 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CachedIcon from '@mui/icons-material/Cached';
 import CommentList from '@/components/Comments/CommenList';
 import { Link } from 'react-router-dom';
-import ButtonLink from '@/commons/Button';
 import { useAppSelector } from '@/store/hooks';
 import { currentNewsSelector, loadingSelector } from '@/store/newsSlice';
 import Loader from '@/components/Loader/Loader';
+import ErrorPage from '@/pages/ErrorPage/ErrorPage.tsx';
 
 interface OneNewsType {
   onPressReload: () => void;
@@ -22,7 +22,7 @@ const NewsDetail: FC<OneNewsType> = ({ onPressReload }) => {
   const isLoading = useAppSelector(loadingSelector);
 
   if (!currentNews) {
-    return null;
+    return <ErrorPage />;
   }
 
   const date = dayjs(currentNews.time * 1000).format('DD.MM.YYYY в HH:mm');
@@ -70,52 +70,49 @@ const NewsDetail: FC<OneNewsType> = ({ onPressReload }) => {
 };
 
 const NewsSection = styled('section')`
-  display: grid;
-  gap: 20px;
-  max-width: 70%;
-  margin-inline: auto;
-  margin-block: 40px;
+    display: grid;
+    gap: 20px;
+    max-width: 70%;
+    margin-inline: auto;
+    margin-block: 40px;
 
-  ${({ theme }) => theme.breakpoints.down('md')} {
-    max-width: none;
-    margin-inline: 50px;
-  }
+    ${({ theme }) => theme.breakpoints.down('md')} {
+        max-width: none;
+        margin-inline: 50px;
+    }
 
-  ${({ theme }) => theme.breakpoints.down('sm')} {
-    margin-inline: 20px;
-  }
+    ${({ theme }) => theme.breakpoints.down('sm')} {
+        margin-inline: 20px;
+    }
 `;
 
 const LinkText = styled(Link)`
-  text-decoration: none;
-  color: ${({ theme }) => theme.palette.text.secondary};
-  transition: all 0.3s;
+    text-decoration: none;
+    color: ${({ theme }) => theme.palette.text.secondary};
+    transition: all 0.3s;
 
-  &:hover {
-    color: ${({ theme }) => theme.palette.text.primary};
-  }
+    &:hover {
+        color: ${({ theme }) => theme.palette.text.primary};
+    }
 `;
 
 const SocialBox = styled('div')`
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-block: #f0f0f0 solid 1px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-block: #f0f0f0 solid 1px;
 `;
 
-const ItemBox = styled(ButtonLink)`
-  gap: 8px;
-  align-items: center;
-  padding: 10px;
-  max-width: max-content;
-  cursor: pointer;
-  border: transparent solid 1px;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.palette.secondary.main}
-    border: ${({ theme }) => theme.palette.primary.main} solid 1px;
-  }
+const ItemBox = styled(Box)`
+    display: flex;
+    gap: 8px;
+    border-radius: 10px;
+    box-shadow: ${({ theme }) => theme.palette.shadow.shadow};
+    align-items: center;
+    padding: 10px;
+    max-width: max-content;
+    border: transparent solid 1px;
 `;
 
 export default NewsDetail;
