@@ -9,4 +9,7 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'always',
   endOfLine: 'lf',
+  importOrder: ['^[~.]'],
+  importOrderSeparation: true,
+  importOrderParserPlugins: ['typescript', 'decorators-legacy'],
 };

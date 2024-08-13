@@ -1,13 +1,13 @@
 import { useAppDispatch } from '@/store/hooks';
-import { FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useParams } from 'react-router';
 import { RouteParamsType } from '@/components/types';
 import useRefetch from '@/commons/useRefetch';
-import { getNewsDetail } from '@/store/newsSlice';
+import { getComments, getNewsDetail } from '@/store/newsSlice';
 import NewsDetail from '@/components/NewsDetail';
 import { useErrorBoundary } from 'react-error-boundary';
 
-const NewsDetailPage: FC = () => {
+const NewsDetailPage = () => {
   const { id } = useParams<RouteParamsType>();
   const { showBoundary } = useErrorBoundary();
   const dispatch = useAppDispatch();
@@ -19,6 +19,10 @@ const NewsDetailPage: FC = () => {
     [dispatch],
   );
 
+  const updateComments = useCallback(async (id: number) => {
+    dispatch(getComments(Number(id)));
+  }, [dispatch]);
+
   useRefetch(() => {
     getCurrentNews(Number(id)).catch(showBoundary);
   });
@@ -26,7 +30,7 @@ const NewsDetailPage: FC = () => {
   return (
     <NewsDetail
       onPressReload={() => {
-        getCurrentNews(Number(id)).catch(showBoundary);
+        updateComments(Number(id)).catch(showBoundary);
       }}
     />
   );

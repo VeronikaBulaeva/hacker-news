@@ -6,12 +6,14 @@ export interface NewsState {
   newsList: NewsListItemType[];
   currentNews: NewsItemType | null;
   loading: boolean;
+  isCommentsFetching: boolean;
 }
 
 const initialState: NewsState = {
   newsList: [],
   currentNews: null,
   loading: false,
+  isCommentsFetching: false,
 };
 
 export const getAllNews = createAsyncThunk(
@@ -35,6 +37,19 @@ export const getNewsDetail = createAsyncThunk(
     rejectWithValue('');
   },
 );
+
+export const getComments = createAsyncThunk(
+  'getComments',
+  async (id: number, { rejectWithValue }): Promise<NewsItemType['comments'] | undefined> => {
+    const result = await fetch(`https://api.hnpwa.com/v0/item/${id}.json`);
+    if (result) {
+      const newsDetail: NewsItemType = await result.json();
+      return newsDetail.comments;
+    }
+    rejectWithValue('');
+  },
+);
+
 
 export const newsSlice = createSlice({
   name: 'news',
@@ -67,6 +82,18 @@ export const newsSlice = createSlice({
       .addCase(getNewsDetail.rejected, (state, action) => {
         state.loading = false;
         throw action.error;
+      }).addCase(getComments.pending, (state) => {
+      state.isCommentsFetching = true;
+    })
+      .addCase(getComments.fulfilled, (state, action) => {
+        if (action.payload && state.currentNews) {
+          state.currentNews.comments = action.payload;
+        }
+        state.isCommentsFetching = false;
+      })
+      .addCase(getComments.rejected, (state, action) => {
+        state.isCommentsFetching = false;
+        throw action.error;
       });
   },
 });
@@ -75,5 +102,6 @@ export const newsListSelector = (state: RootState) => state.news.newsList;
 export const currentNewsSelector = (state: RootState) => state.news.currentNews;
 
 export const loadingSelector = (state: RootState) => state.news.loading;
+export const isCommentsFetchingSelector = (state: RootState) => state.news.isCommentsFetching;
 
 export default newsSlice.reducer;

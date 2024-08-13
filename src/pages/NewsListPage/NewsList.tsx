@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { RouteParamsType } from '@/components/types';
 import { MainSection, UpdateButton } from '@/components/style';
@@ -9,7 +9,7 @@ import { getAllNews } from '@/store/newsSlice';
 import { useAppDispatch } from '@/store/hooks';
 import List from '@/components/NewsList/List/List';
 
-const NewsList: FC = () => {
+const NewsList = () => {
   const { id = 1 } = useParams<RouteParamsType>();
   const { showBoundary } = useErrorBoundary();
   const dispatch = useAppDispatch();

@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { Box, styled, Typography } from '@mui/material';
 import ButtonLink from '@/commons/Button';
 import { CommentType } from '@/components/Comments/Comments.type';
 
-const Comments: FC<CommentType> = ({ content, comments, user, time_ago }) => {
+const Comments = ({ content, comments, user, time_ago }: CommentType) => {
   const [isShown, setIsShown] = useState(false);
 
   const changeVisibility = () => {
@@ -34,9 +34,9 @@ const Comments: FC<CommentType> = ({ content, comments, user, time_ago }) => {
         </CommentButton>
       )}
       {isShown &&
-        comments
-          .filter((comment) => !comment.deleted || !comment.dead)
-          .map((comment) => <Comments {...comment} key={comment.id} />)}
+        comments.map((comment) =>
+          !comment.deleted || !comment.dead ? <Comments {...comment} key={comment.id} /> : null,
+        )}
     </CommentBox>
   );
 };
@@ -47,7 +47,6 @@ const CommentBox = styled('div')`
   background-color: ${({ theme }) => theme.palette.background.default};
   border-radius: 10px;
   padding: 16px 20px;
-  margin-top: 16px;
   box-shadow: ${({ theme }) => theme.palette.shadow.shadow};
   text-decoration: none;
 `;
@@ -57,7 +56,6 @@ export const CommentButton = styled(ButtonLink)`
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  margin-top: 16px;
   padding: 16px 20px;
 `;
 

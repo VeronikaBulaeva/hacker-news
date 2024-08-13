@@ -1,9 +1,8 @@
-import { FC } from 'react';
 import { NewsListItemType } from '@/components/types';
 import { styled, Typography } from '@mui/material';
 import ButtonLink from '@/commons/Button';
 
-const NewsItem: FC<NewsListItemType> = ({ title, user, time_ago, id, points, comments_count }) => {
+const NewsItem = ({ title, user, time_ago, id, points, comments_count }: NewsListItemType) => {
   return (
     <NewsItemLink to={`/news/${id}`}>
       <Typography variant="h1" color="text.primary">

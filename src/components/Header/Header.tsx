@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { useNavigate } from 'react-router';
 import ButtonLink from '@/commons/Button';
@@ -6,7 +5,7 @@ import { styled, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { MAIN_PAGE_ROUTE } from '@/constants/routes.ts';
 
-const Header: FC = () => {
+const Header = () => {
   const navigate = useNavigate();
 
   return (
@@ -30,11 +29,9 @@ const HeaderSection = styled('section')`
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid ${({ theme }) => theme.palette.secondary.main};
-    margin-inline: auto;
 `;
 
 const HeaderLink = styled(ButtonLink)`
-    margin-top: 16px;
     padding: 16px 20px;
     align-items: center;
 
