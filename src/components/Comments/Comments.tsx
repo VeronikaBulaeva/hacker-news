@@ -42,21 +42,21 @@ const Comments = ({ content, comments, user, time_ago }: CommentType) => {
 };
 
 const CommentBox = styled('div')`
-  display: grid;
-  gap: 10px;
-  background-color: ${({ theme }) => theme.palette.background.default};
-  border-radius: 10px;
-  padding: 16px 20px;
-  box-shadow: ${({ theme }) => theme.palette.shadow.shadow};
-  text-decoration: none;
+    display: grid;
+    gap: 10px;
+    background-color: ${({ theme }) => theme.palette.background.default};
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: ${({ theme }) => theme.palette.shadows.greyShadow};
+    text-decoration: none;
 `;
 
 export const CommentButton = styled(ButtonLink)`
-  color: ${({ theme }) => theme.palette.text.secondary};
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  padding: 16px 20px;
+    color: ${({ theme }) => theme.palette.text.secondary};
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 16px 20px;
 `;
 
 export default Comments;

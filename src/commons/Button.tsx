@@ -15,7 +15,7 @@ const Button = styled(MUIButton)<ButtonProps>`
     gap: 20px;
     border: transparent solid 1px;
     border-radius: 10px;
-    box-shadow: ${({ theme }) => theme.palette.shadow.shadow};
+    box-shadow: ${({ theme }) => theme.palette.shadows.greyShadow};
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s;

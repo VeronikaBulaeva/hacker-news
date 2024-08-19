@@ -2,15 +2,15 @@ import { createTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Palette {
-    shadow: Shadow;
+    shadows: ProjectShadows;
   }
 
   interface PaletteOptions {
-    shadow?: Shadow;
+    shadows?: ProjectShadows;
   }
 
-  interface Shadow {
-    shadow: string;
+  interface ProjectShadows {
+    greyShadow: string;
   }
 }
 
@@ -37,7 +37,7 @@ export const theme = createTheme({
       default: '#FFFFFF',
       paper: '#000',
     },
-    shadow: { shadow: '5px 5px 20px 0 #0000001a' },
+    shadows: { greyShadow: '5px 5px 20px 0 #0000001a' },
     text: {
       primary: '#1c1c27',
       secondary: '#adadad',
